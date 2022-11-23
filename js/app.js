@@ -23,6 +23,7 @@ var gTimerCounter
 
 
 function initGame() {
+    gGame.isOn = false
     gLivesCounter = 3
     gMinesLeftToMark = gLevel.MINES
     // TODO: set initial values here that come before creating model
@@ -45,8 +46,7 @@ function cellClicked(elCell, i, j, ev) {
     // if(elCellContent = elCell.querySelector('*')){
     //     expandShown(gBoard,elCell,i, j)
     // }
-    console.log('gGame.isOn:', gGame.isOn)
-    if (gGame.isOn === false) {
+    if (!gGame.isOn) {
         gTimerCounter = 1
         gTimerInterval = setInterval(startTimer, 1000)
         gGame.isOn = true
@@ -54,6 +54,7 @@ function cellClicked(elCell, i, j, ev) {
     if (ev.button === 0 && gBoard[i][j].isMarked) return
     if (ev.button === 0 && gBoard[i][j].isShown) return
     if (ev.button === 2 && !gBoard[i][j].isMarked && !gBoard[i][j].isShown) {
+        if (gMinesLeftToMark === 0) return
         gPrevCellContent = elCell.innerHTML
         elCell.innerHTML = `<img src="imgs/flag.png" alt="flag">`
         elCell.querySelector('*').classList.toggle('revealed')
@@ -73,7 +74,7 @@ function cellClicked(elCell, i, j, ev) {
         return
     }
     // check whats inside
-    if (gBoard[i][j].isMine) {
+    if (ev.button === 0 && gBoard[i][j].isMine) {
         if (!gBoard[i][j].isShown) {
             gBoard[i][j].isShown = true
             elCellContent.classList.add('revealed')
@@ -88,7 +89,7 @@ function cellClicked(elCell, i, j, ev) {
             return
         }
     }
-    if (gBoard[i][j].minesAroundCount) {
+    if (ev.button === 0 && gBoard[i][j].minesAroundCount) {
         elCellContent.classList.add('revealed')
     }
     gGame.shownCount++
@@ -239,9 +240,8 @@ function resetGame() {
 function checkWin() {
     if (gLevel.MINES === gGame.markedCount) {
         document.querySelector('.reset img').src = 'imgs/winner.png'
+        clearInterval(gTimerInterval)
     }
-    clearInterval(gTimerInterval)
-    gGame.isOn = false
     // if (gLevel.MINES === gGame.markedCount && gGame.shownCount >= gLevel.SIZE**2-gLevel.MINES) {
     //     console.log('he:')
     // }
