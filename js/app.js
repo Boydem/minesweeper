@@ -66,7 +66,11 @@ function cellClicked(elCell, i, j, ev) {
         return
     } else if (ev.button === 2 && gBoard[i][j].isMarked && !gBoard[i][j].isShown) {
         elCell.innerHTML = gPrevCellContent
-        elCell.querySelector('*').classList.remove('revealed')
+        if (elCell.querySelector('*') !== null) {
+            elCell.querySelector('*').classList.remove('revealed')
+        } else {
+            elCell.classList.remove('revealed')
+        }
         gMinesLeftToMark++
         gGame.markedCount--
         gBoard[i][j].isMarked = false
@@ -103,7 +107,6 @@ function cellClicked(elCell, i, j, ev) {
 function startTimer() {
     document.querySelector('.timer').innerText = String(gTimerCounter).padStart(3, '0')
     gTimerCounter++
-    console.log('gTimerCounter:', gTimerCounter)
 }
 
 
