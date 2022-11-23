@@ -226,7 +226,7 @@ function countAround(board, rowIdx, colIdx) {
 
 function resetGame() {
     document.querySelector('.lives span').innerText = '❤❤❤'
-    document.querySelector('.reset img').src = '/imgs/smiley-face.png'
+    document.querySelector('.reset img').src = 'imgs/smiley-face.png'
     gGame.isOn = false
     gGame.markedCount = 0
     clearInterval(gTimerInterval)
@@ -238,7 +238,7 @@ function resetGame() {
 
 function checkWin() {
     if (gLevel.MINES === gGame.markedCount) {
-        document.querySelector('.reset img').src = '/imgs/winner.png'
+        document.querySelector('.reset img').src = 'imgs/winner.png'
     }
     clearInterval(gTimerInterval)
     gGame.isOn = false
@@ -251,7 +251,7 @@ function checkWin() {
 function gameOver() {
     clearInterval(gTimerInterval)
     gGame.isOn = false
-    document.querySelector('.reset img').src = '/imgs/dead-face.png'
+    document.querySelector('.reset img').src = 'imgs/dead-face.png'
     // var elCellsContent = document.querySelectorAll('tbody tr td *')
     var elCells = document.querySelectorAll('tbody tr td')
     for (let i = 0; i < elCells.length; i++) {
