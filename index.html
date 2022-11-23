@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>minesweeper</title>
+</head>
+<body oncontextmenu="return false" onload="initGame()">
+    
+    <section class="game-wrap">
+        <div class="left">
+        </div>
+        <div class="center">
+            <div class="levels">
+                <button class="level" onclick="changeLevel(this)">BEGINNER</button>
+                <button class="level" onclick="changeLevel(this)">MEDIUM</button>
+                <button class="level" onclick="changeLevel(this)">EXPERT</button>
+            </div>
+            <p class="lives">LIVES:<span>❤❤❤</span></p>
+            <table class="board"></table>
+        </div>
+        <div class="right">
+            <p class="best-score">BEST SCORE: 1</p>
+            
+        </div>
+        <h1 class="mine-title">MINESWEEPER</h1>
+    </section>
+    
+
+
+
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    
+
+
+</body>
+</html>

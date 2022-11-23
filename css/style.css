@@ -1,0 +1,199 @@
+@font-face {
+    font-family: "Digital Dismay";
+    src: url("../fonts/digital-dismay.otf") format("truetype");
+}
+
+@font-face {
+    font-family: "Press Start";
+    src: url("../fonts/prstart.ttf");
+}
+
+/* @font-face {
+    font-family: "MS Sans Serif";
+    src: url("./micross.ttf");
+} */
+*{
+    user-select: none;
+}
+html,body{
+    overflow-x: hidden;
+}
+body,body *{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-size: 16px;
+    font-family: "Press Start";
+    color: rgb(255, 255, 255);  
+    background-color: rgb(246, 238, 255);
+}
+button{
+    cursor:pointer;
+}
+
+.game-wrap{
+    margin: 20px;
+    width: calc(100% - 40px);
+    height: calc(100vh - 40px);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+.right{
+    border-radius: 0px 20px 20px 0px;
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(0, 12, 26);
+}
+.center{
+    flex:1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em 6em;
+    background:rgb(2, 15, 29);
+}
+.left{
+    border-radius: 20px 0px 0px 20px;
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(0, 12, 26);
+}
+
+.levels{
+    display: flex;
+    gap: 20px;
+}
+
+.level{
+    width: 100%;
+    padding: 20px;
+    background-color: transparent;
+    color: rgb(204, 154, 255);
+    font-family: "Press Start";
+    border: 1px solid grey;
+    transition: 0.1s border;
+}
+.level:hover{
+    border: 1px solid rgb(204, 154, 255);
+    
+}
+.mine-title{
+    position: absolute;
+    text-align: center;
+    font-size: 2.25em;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(204, 154, 255);
+}
+.lives{
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.lives span{
+    color: rgb(204, 154, 255);
+    
+}
+
+table{
+    margin: 20px auto;
+    /* width: 33%; */
+    
+    border-top: 4px solid rgba(255, 255, 255, 0.705);
+    border-left: 4px solid rgba(255, 255, 255, 0.705);
+    border-right: 4px solid grey;
+    border-bottom: 4px solid grey;
+    border-spacing: 0px;
+    /* border-color: rgb(221, 221, 221); */
+}
+td{
+    background-color: #C0C0C0;
+    border-top: 3px solid #ffffff;
+    border-right: 3px solid #7B7B7B;
+    border-bottom: 3px solid #7B7B7B;
+    border-left: 3px solid #ffffff;
+    vertical-align: center;
+    text-align: center;
+    font-size: 1em;
+}
+.status-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px;
+    margin: 6px;
+    border-top: 3px solid #7B7B7B;
+    border-right: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
+    border-left: 3px solid #7B7B7B;
+}
+.timer, .bomb-counter {
+    font-family: 'Digital Dismay';
+    font-size: 35px;
+    letter-spacing: 1px;
+    color: red;
+    background-color: black;
+    text-align: center;
+    padding: 3px 3px 0 6px;
+}
+.reset{
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    border-top: 3px solid #ffffff;
+    border-right: 3px solid #7B7B7B;
+    border-bottom: 3px solid #7B7B7B;
+    border-left: 3px solid #ffffff;
+}
+.reset img{
+    width: 100%;
+}
+.reset:hover{
+    cursor: pointer;
+}
+
+/* .lives{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+.best-score{
+    position: absolute;
+    top: 20px;
+    right: 20px; 
+} */
+.selected{
+    border-top: 3px solid #7B7B7B;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    border-left: 3px solid #7B7B7B;
+    /* background-image:linear-gradient(135deg,#d3d3d3f6,rgba(255, 255, 255, 0.7)) ; */
+}
+tbody tr td{
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    object-fit: contain;
+}
+/* not displayed by default */
+.cell *{
+    display: none;
+}
+tbody tr td img{
+    width: 18px;
+    height: 18px;
+
+    object-fit: cover;
+    /* height: 20px; */
+}
+.revealed{
+    display: inline-block;
+}
+.num{
+    font-size: 12px;
+}
