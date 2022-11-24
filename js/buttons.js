@@ -6,6 +6,16 @@ var gSafeCounter
 var gMegaCounter
 var gExterminatorCounter
 var gCurrLevel = 2
+const hoverSound1 = new Audio('/audio/hover4.wav')
+const hoverSound2 = new Audio('/audio/hover3.wav')
+hoverSound1.volume = 0.1
+hoverSound2.volume = 0.1
+const clickSound = new Audio('/audio/click.wav')
+clickSound.volume = 0.1
+document.querySelector('body').addEventListener('click', () => {
+    clickSound.currentTime = 0
+    clickSound.play()
+})
 
 function enableBtns() {
     var helpers = document.querySelectorAll('.helper')
@@ -23,6 +33,8 @@ function disableBtns() {
 }
 
 function onHelperMouseEnter(elBtn) {
+    hoverSound1.currentTime = 0
+    hoverSound1.play()
     const elBtnName = document.querySelector('.helper-span')
     switch (elBtn.dataset.btnType) {
         case 'hint':
@@ -82,6 +94,7 @@ function onSafeBtn(board) {
 
 
     if (gSafeCounter > 0) {
+        gSafeCounter--
         console.log('safe')
         var safeCells = []
         for (let i = 0; i < board.length; i++) {
@@ -102,10 +115,7 @@ function onSafeBtn(board) {
         randomSafe.classList.add('safe')
         setTimeout(() => {
             randomSafe.classList.remove('safe')
-            gSafeCounter--
             document.querySelector(`button[data-btn-type="safe"] span`).innerText = gSafeCounter
-
-
         }, 2000);
     } else {
         return
@@ -124,21 +134,18 @@ function onExterminatorBtn() {
 function changeLevel(elBtn) {
     switch (elBtn.dataset.btnScore) {
         case 'beginner':
-            console.log('1');
             gLevel.SIZE = 4
             gLevel.MINES = 2
             gCurrLevel = 1
             resetGame()
             return;
         case 'medium':
-            console.log('2');
             gLevel.SIZE = 8
             gLevel.MINES = 14
             gCurrLevel = 2
             resetGame()
             return;
         case 'expert':
-            console.log('3');
             gLevel.SIZE = 12
             gLevel.MINES = 32
             gCurrLevel = 3
@@ -149,6 +156,8 @@ function changeLevel(elBtn) {
 }
 
 function onLevelMouseEnter(elBtn) {
+    hoverSound2.currentTime = 0
+    hoverSound2.play()
     const elScore = elBtn.querySelector('.best-score')
     switch (elBtn.dataset.btnScore) {
         case 'beginner':

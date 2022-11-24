@@ -25,6 +25,10 @@ var gIsMegaFirstSaved
 var gFirstCell
 var gFirstClickEver
 var gEmptySeen
+const hbSound1 = new Audio('/audio/hb.wav')
+const hbSound2 = new Audio('/audio/hb2.wav')
+hbSound1.volume = 0.4
+hbSound2.volume = 0.4
 
 
 function initGame() {
@@ -96,7 +100,6 @@ function saveCellItem(cell, i, j, content) {
         j,
         content
     })
-    console.log('saved ... but u gotta save more probably nah ?:', gPrevCellContent)
 }
 
 
@@ -187,14 +190,21 @@ function cellClicked(elCell, i, j, ev) {
     if (leftClick && gBoard[i][j].isMine) {
         if (!gBoard[i][j].isShown && gGame.isOn) {
             gLivesCounter--
-            if (gLivesCounter === 0) gameOver()
+            var hearts = document.querySelectorAll('.lives img')
+            hearts[gLivesCounter].style.opacity = '0'
+            if (gLivesCounter === 0) {
+                elCellContent.classList.add('revealed')
+                elCell.style.backgroundColor = 'red'
+                gameOver()
+                return
+            }
+            hbSound2.currentTime = 0
+            hbSound2.play()
             gBoard[i][j].isShown = true
             elCellContent.classList.add('revealed')
             elCell.style.backgroundColor = 'red'
             gMinesLeftToMark--
             document.querySelector('.bomb-counter').innerText = String(gMinesLeftToMark).padStart(3, '0')
-            var hearts = document.querySelectorAll('.lives img')
-            hearts[gLivesCounter].style.opacity = '0'
         } else {
             return
         }
@@ -301,22 +311,22 @@ function colorNumbers(board) {
                 case 0:
                     break
                 case 1:
-                    elCell.style.color = 'blue'
+                    elCell.style.color = '#00A5E0'
                     break
                 case 2:
-                    elCell.style.color = 'green'
+                    elCell.style.color = '#3AB795'
                     break
                 case 3:
-                    elCell.style.color = 'red'
+                    elCell.style.color = '#ED254E'
                     break
                 case 4:
-                    elCell.style.color = '#202081'
+                    elCell.style.color = '#C04CFD'
                     break
                 case 5:
-                    elCell.style.color = '#690400'
+                    elCell.style.color = '#B3001B'
                     break
                 case 6:
-                    elCell.style.color = '#199'
+                    elCell.style.color = '#592E83'
                     break
             }
 
@@ -425,6 +435,9 @@ function checkWin() {
         clearInterval(gTimerInterval)
         gGame.isOn = false
         gIsGameOver = true
+        var gameOverSound = new Audio('audio/win.wav')
+        gameOverSound.volume = 0.5
+        gameOverSound.play()
         handleScore(gCurrLevel)
     }
 }
@@ -474,8 +487,11 @@ function handleScore(level) {
 
 
 function gameOver() {
-    clearInterval(gTimerInterval)
 
+    clearInterval(gTimerInterval)
+    var gameOverSound = new Audio('audio/gameover.wav')
+    gameOverSound.volume = 0.5
+    gameOverSound.play()
     gGame.isOn = false
     document.querySelector('.reset img').src = 'imgs/dead-face.png'
     const elHeart = document.querySelectorAll('.heart')[1]
