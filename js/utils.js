@@ -43,7 +43,7 @@ function renderBoard(board, selector) {
             if (cell.isMine) {
                 strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="mine-img" src="imgs/mine.png" alt="mine"/></td>`
             } else if (cell.minesAroundCount !== 0) {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span class="num">${cell.minesAroundCount}</span></td>`
+                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
             } else {
                 strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
             }
@@ -251,3 +251,116 @@ function cleanBoard() {
         elTds[i].classList.remove('mark', 'selected')
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// WORKING CELLCLICKED
+
+// function cellClicked(elCell, i, j, ev) {
+//     console.log('gGame.shownCount:', gGame.shownCount)
+
+//     const elCellContent = elCell.querySelector('*')
+
+//     if (gIsHint && gHintsCounter > 0) {
+//         expandForHint(gBoard, elCell, i, j)
+//         gHintsCounter--
+//         gIsHint = false
+//         document.querySelector(`button[data-btn-type="hint"] span`).innerText = gHintsCounter
+//         return
+//     }
+
+//     var leftClick = ev.button === 0
+//     var rightClick = ev.button === 2
+//     console.log('elCell:', elCell)
+//     console.log('elCell:', elCell)
+
+//     // if(elCellContent = elCell.querySelector('*')){
+//     //     expandShown(gBoard,elCell,i, j)
+//     // }
+//     if (!gGame.isOn) {
+//         gTimerCounter = 1
+//         gTimerInterval = setInterval(startTimer, 1000)
+//         gGame.isOn = true
+//     }
+//     if (leftClick && gBoard[i][j].isMarked) return
+//     if (leftClick && gBoard[i][j].isShown) return
+//     if (rightClick && !gBoard[i][j].isMarked && !gBoard[i][j].isShown) {
+//         if (gMinesLeftToMark === 0) return
+//         gPrevCellContent = elCell.innerHTML
+//         elCell.innerHTML = `<img src="imgs/flag.png" alt="flag">`
+//         elCell.querySelector('*').classList.add('revealed')
+//         gBoard[i][j].isMarked = true
+//         gGame.markedCount++
+//         gMinesLeftToMark--
+//         document.querySelector('.bomb-counter').innerText = String(gMinesLeftToMark).padStart(3, '0')
+//         checkWin()
+//         return
+//     } else if (rightClick && gBoard[i][j].isMarked && !gBoard[i][j].isShown) {
+//         elCell.innerHTML = gPrevCellContent
+//         if (elCell.querySelector('*') !== null) {
+//             elCell.querySelector('*').classList.remove('revealed')
+//         } else {
+//             elCell.classList.remove('revealed')
+//         }
+//         gMinesLeftToMark++
+//         gGame.markedCount--
+//         gBoard[i][j].isMarked = false
+//         document.querySelector('.bomb-counter').innerText = String(gMinesLeftToMark).padStart(3, '0')
+//         return
+//     }
+//     // check whats inside
+//     if (leftClick && gBoard[i][j].isMine) {
+//         if (!gBoard[i][j].isShown) {
+//             gBoard[i][j].isShown = true
+//             elCellContent.classList.add('revealed')
+//             elCell.style.backgroundColor = 'red'
+//             gLivesCounter--
+//             gMinesLeftToMark--
+//             document.querySelector('.bomb-counter').innerText = String(gMinesLeftToMark).padStart(3, '0')
+//             var hearts = document.querySelectorAll('.lives img')
+//             hearts[gLivesCounter].style.opacity = '0'
+//             if (gLivesCounter === 0) gameOver()
+//         } else {
+//             return
+//         }
+//     }
+//     if (leftClick && elCellContent) {
+//         elCellContent.classList.add('revealed')
+//     }
+//     if (leftClick && gBoard[i][j].minesAroundCount === 0 && !gBoard[i][j].isMine) {
+//         expandShown(gBoard, elCell, i, j)
+//     } else if (!gBoard[i][j].isMine) {
+//         gGame.shownCount++
+//         gBoard[i][j].isShown = true
+//     }
+//     elCell.classList.add('selected')
+//     // 
+//     checkWin()
+//     console.log('gGame.shownCount:', gGame.shownCount)
+
+// }

@@ -14,28 +14,72 @@
     
     <section class="game-wrap">
         <div class="left">
+            <h1 class="mine-title">MINESWEEPER</h1>
+
+            <h2>HELPER?</h2>
+            <div class="helper-btns">
+            <button data-btn-type="hint" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+                <span class="helper-counter">3</span>
+                <!-- HINT -->
+                <img src="/imgs/hint2.png" alt="hint" class="btn-img">
+            </button>
+            <button data-btn-type="safe" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+                <span class="helper-counter">3</span>
+                <!-- SAFE CLICK -->
+                <img src="/imgs/safe.png" alt="safe" class="btn-img">
+            </button>
+            <button data-btn-type="mega" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+                <span class="helper-counter">1</span>
+                <!-- MEGA HINT -->
+                <img src="/imgs/mega2.png" alt="mega" class="btn-img">
+            </button>
+            <button data-btn-type="exterminator" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+                <span class="helper-counter">1</span>
+                <!-- EXTERMINATOR -->
+                <img src="/imgs/exterminator.png" alt="ext" class="btn-img">
+            </button>
         </div>
-        <div class="center">
-            <div class="levels">
-                <button class="level" onclick="changeLevel(this)">BEGINNER</button>
-                <button class="level" onclick="changeLevel(this)">MEDIUM</button>
-                <button class="level" onclick="changeLevel(this)">EXPERT</button>
-            </div>
-            <p class="lives">LIVES:<span>❤❤❤</span></p>
-            <table class="board"></table>
+
+
+
+        <span class="helper-span">HINT</span>
         </div>
         <div class="right">
-            <p class="best-score">BEST SCORE: 1</p>
-            
+
+            <div class="levels">
+                <button data-btn-score="beginner" class="btn level" onmouseenter="onLevelMouseEnter(this)" onmouseleave="onLevelMouseLeave(this)" onclick="changeLevel(this)">
+                <span data-btn-score="beginner" class="best-score">BEST SCORE: 1</span>
+                    BEGINNER
+                </button>
+                <button data-btn-score="medium" class="btn level" onmouseenter="onLevelMouseEnter(this)" onmouseleave="onLevelMouseLeave(this)" onclick="changeLevel(this)" >
+                <span data-btn-score="medium" class="best-score">BEST SCORE: 1</span>
+                    MEDIUM
+                </button>
+                <button data-btn-score="expert" class="btn level" onmouseenter="onLevelMouseEnter(this)" onmouseleave="onLevelMouseLeave(this)"  onclick="changeLevel(this)">
+                    <span data-btn-score="expert" class="best-score">BEST SCORE: 1</span>
+                    EXPERT
+                </button>
+            </div>
+
+            <div class="lives-wrapper">
+                <p class="lives">
+                    <img src="imgs/heart.png" alt="heart" class="heart">
+                    <img src="imgs/heart.png" alt="heart" class="heart">
+                    <img src="imgs/heart.png" alt="heart" class="heart">
+                </p>
+            </div>
+
+            <table class="board"></table>
         </div>
-        <h1 class="mine-title">MINESWEEPER</h1>
     </section>
+    <footer><p>This Minesweeper was built and designed by <a class="footer-mygit" href="https://github.com/boydem">Noam Dahan</a></p></footer>
     
 
 
 
 
     <script src="js/utils.js"></script>
+    <script src="js/buttons.js"></script>
     <script src="js/app.js"></script>
     
 
