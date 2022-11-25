@@ -25,8 +25,8 @@ var gIsMegaFirstSaved
 var gFirstCell
 var gFirstClickEver
 var gEmptySeen
-const hbSound1 = new Audio('/audio/hb.wav')
-const hbSound2 = new Audio('/audio/hb2.wav')
+const hbSound1 = new Audio('audio/hb.wav')
+const hbSound2 = new Audio('audio/hb2.wav')
 hbSound1.volume = 0.4
 hbSound2.volume = 0.4
 

@@ -6,12 +6,12 @@ var gSafeCounter
 var gMegaCounter
 var gExterminatorCounter
 var gCurrLevel = 2
-const hoverSound1 = new Audio('/audio/hover4.wav')
-const hoverSound2 = new Audio('/audio/hover3.wav')
+const hoverSound1 = new Audio('audio/hover4.wav')
+const hoverSound2 = new Audio('audio/hover3.wav')
 hoverSound1.volume = 0.1
 hoverSound2.volume = 0.1
-const clickSound = new Audio('/audio/click.wav')
-clickSound.volume = 0.1
+const clickSound = new Audio('audio/click.wav')
+clickSound.volume = 0.2
 document.querySelector('body').addEventListener('click', () => {
     clickSound.currentTime = 0
     clickSound.play()
