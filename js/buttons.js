@@ -71,6 +71,7 @@ function onHelperMouseLeave(elBtn) {
 }
 
 function onHelperBtn(elBtn) {
+    if (gIsGameOver) return
     switch (elBtn.dataset.btnType) {
         case 'hint':
             gIsHintPressed = true
@@ -93,7 +94,6 @@ function onHelperBtn(elBtn) {
 }
 
 function onSafeBtn(board) {
-
 
     if (gSafeCounter > 0) {
         gSafeCounter--
@@ -188,11 +188,13 @@ function switchTheme() {
         isDarkMode = false
         root.setAttribute('data-theme', 'light');
         document.querySelector('.dark-mode-img').src = 'imgs/sun.png'
+        document.querySelector('.dark-mode-text').innerText = 'LIGHT MODE'
         console.log('light now');
     } else {
         isDarkMode = true
         root.setAttribute('data-theme', 'dark');
         document.querySelector('.dark-mode-img').src = 'imgs/dark.png'
+        document.querySelector('.dark-mode-text').innerText = 'DARK MODE'
         console.log('dark now');
     }
 }

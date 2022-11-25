@@ -9,20 +9,20 @@
 }
 
 :root {
-    --body-bgc:rgb(220, 200, 255);
+    --body-bgc:rgb(225, 200, 255);
     --board-bgc: rgb(2, 15, 29);
-    --primary: rgb(105, 58, 151);
+    --primary: rgb(86, 0, 172);
     --primary-light: rgb(220, 200, 255);
     --darkblue: rgb(0, 12, 26);
     --mine-title:#C2E812;
     --footer: rgb(105, 58, 151);
 }
 [data-theme="light"]  {
-    --body-bgc:#25607e;
+    --body-bgc:#006977;
     --board-bgc:  #f8e9d9;
-    --primary: #397797;
+    --primary: #00acac;
     --footer: #f8e9d9;
-    --primary-light: #c2ebff;
+    --primary-light: #c7fff7;
     --darkblue: #fff3e5;
     --mine-title:#e81411
 }
@@ -61,15 +61,7 @@ button:hover{
     justify-content: center;
     align-items: stretch;
 }
-/* .right{
-    border-radius: 0px 20px 20px 0px;
-    flex: 2 2 0;
-    padding: 20px;
-    background-color: rgb(0, 12, 26);
-    max-width: 33%;
-} */
 .right{
-    /* max-width: 60%; */
     position: relative;
     flex: 3 2 0;
     text-align: center;
@@ -331,26 +323,50 @@ footer{
     animation: blink 0.2s ease infinite alternate ;
 }
 
+/* DARK MODE */
+
+.dark-mode-wrapper{
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+}
 .dark-mode-img{
     height: 24px;
     vertical-align: middle;
 }
 .dark-mode-btn{
-    align-self: center;
-    position: absolute;
-    bottom: -10px;
-    left: -10px;
     z-index: 2;
     background-color: var(--darkblue);
     border:2px solid  var(--primary);
-    transition: all 0.3s;
+    transition: border 0.3s;
+    transition-property: border color;
     box-shadow: 0px 0px 10px var(--primary);
 }
 .dark-mode-btn:hover{
+    transition: box-shadow 0.3s;
     border:2px solid  var(--mine-title);
-    /* background-color: var(--primary-light); */
-    box-shadow: none;
+    box-shadow: 0px 0px 0px purple;
 }
+.dark-mode-text{
+    text-align: left;
+    pointer-events: none;
+    color: var(--mine-title);
+    position: absolute;
+    top: calc(50% - 12px);
+    left: calc(100% + 6px);
+    /* margin-left: 5px; */
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.dark-mode-wrapper:hover .dark-mode-text {
+    transition: opacity 0.3s;
+    opacity: 1;
+}
+
+
+/* FOOTER */
+
 
 .footer-mygit{
 color: var(--footer);

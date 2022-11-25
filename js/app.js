@@ -25,11 +25,13 @@ var gIsMegaFirstSaved
 var gFirstCell
 var gFirstClickEver
 var gEmptySeen
+var gIsBoardLocked
 const bombSound = new Audio('audio/hb2.wav')
 bombSound.volume = 0.4
 
 
 function initGame() {
+    gIsBoardLocked = false
     gFirstClickEver = false
     gIsGameOver = false
     gGame.isOn = false
@@ -61,6 +63,7 @@ function getMatchingFlag(saved, currI, currJ) {
 }
 
 function cellMarked(elCell, i, j) {
+    if (gIsBoardLocked) return
     if (!gFirstClickEver) return
     if (!gGame.isOn) return
     if (!gBoard[i][j].isMarked && !gBoard[i][j].isShown) {
@@ -103,6 +106,7 @@ function saveCellItem(cell, i, j, content) {
 
 
 function cellClicked(elCell, i, j, ev) {
+    if (gIsBoardLocked) return
     if (!gFirstClickEver) {
         enableBtns()
         var mines = getMinesCoords(gBoard, i, j)
@@ -121,6 +125,7 @@ function cellClicked(elCell, i, j, ev) {
             gBoard[i][j].isShown = true
         }
     }
+
 
     if (gIsMegaPressed && !gIsMegaFirstSaved) {
         gIsMegaFirstSaved = true
@@ -258,51 +263,6 @@ function expandShown(board, elCell,
     }
 
 }
-
-function expandForHint(board, elCell,
-    rowIdx, colIdx) {
-    elCell.classList.add('selected')
-    var revealed = []
-
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        // EXCLUDE OVERFLOW
-        if (i < 0 || i >= board.length) continue
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            // EXCLUDE OVERFLOW
-            if (j < 0 || j >= board[0].length) continue
-            var currCell = board[i][j]
-            if (currCell.isMarked) continue
-            if (currCell.isShown) continue
-            // DOM
-            var cellSelector = '.cell-' + i + '-' + j
-            var elCurrCell = document.querySelector(cellSelector)
-            revealed.push(elCurrCell)
-            elCurrCell.classList.add('selected')
-            elCurrCell.classList.add('hint')
-            if (elCurrCell.querySelector('*')) {
-                elCurrCell.querySelector('*').classList.add('revealed')
-            }
-        }
-    }
-    setTimeout(() => {
-        for (let i = 0; i < revealed.length; i++) {
-            const elCurrCell = revealed[i];
-            if (elCurrCell.querySelector('*')) {
-                elCurrCell.querySelector('*').classList.remove('revealed')
-            }
-            elCurrCell.classList.remove('hint')
-            elCurrCell.classList.remove('selected')
-        }
-    }, 2000)
-}
-
-
-
-function startTimer() {
-    document.querySelector('.timer').innerText = String(gTimerCounter).padStart(3, '0')
-    gTimerCounter++
-}
-
 
 function colorNumbers(board) {
 
@@ -512,13 +472,6 @@ function gameOver() {
 }
 
 
-function resetHearts() {
-    document.querySelector('.lives').innerHTML = `
-    <img src="imgs/heart.png" alt="heart" class="heart">
-    <img src="imgs/heart.png" alt="heart" class="heart">
-    <img src="imgs/heart.png" alt="heart" class="heart">
-    `
-}
 
 function setBestScores() {
     const levels = [`beginner`, `medium`, `expert`]
@@ -528,53 +481,3 @@ function setBestScores() {
         elScoreSpan.innerText = (currBest === null) ? `BEST:UNSET` : `Best Score: ${currBest} Secs`
     }
 }
-
-function megaMark(board, fromCoord, toCoord) {
-    var revealed = []
-    for (let i = fromCoord.i; i <= toCoord.i; i++) {
-        for (let j = fromCoord.j; j <= toCoord.j; j++) {
-            // const cell = board[i][j];
-            if (board[fromCoord.i][fromCoord.j]) fromCoord.elCell.classList.remove('mega-mark')
-            if (board[toCoord.i][toCoord.j]) toCoord.elCell.classList.remove('mega-mark')
-            var currCell = board[i][j]
-            if (currCell.isMarked) continue
-            if (currCell.isShown) continue
-            // DOM
-            var cellSelector = '.cell-' + i + '-' + j
-            var elCurrCell = document.querySelector(cellSelector)
-            revealed.push(elCurrCell)
-            elCurrCell.classList.add('selected')
-            elCurrCell.classList.add('hint')
-            if (elCurrCell.querySelector('*')) {
-                elCurrCell.querySelector('*').classList.add('revealed')
-            }
-        }
-    }
-    setTimeout(() => {
-        for (let i = 0; i < revealed.length; i++) {
-            const elCurrCell = revealed[i];
-            if (elCurrCell.querySelector('*')) {
-                elCurrCell.querySelector('*').classList.remove('revealed')
-            }
-            elCurrCell.classList.remove('hint')
-            elCurrCell.classList.remove('selected')
-            document.querySelector(`button[data-btn-type="mega"] span`).innerText = '0'
-        }
-    }, 2000)
-
-
-
-    // coords.push({
-    //     i,
-    //     j
-    // })
-
-
-
-}
-// function enableBtns(){
-//     var helpers = document.querySelectorAll('.helper')
-//     helpers.forEach(helper => {
-//         helper.disabled = helper.disabled
-//     });
-// }

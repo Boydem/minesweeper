@@ -64,6 +64,42 @@ function renderCell(location, value) {
     elCell.innerHTML = value
 }
 
+
+function startTimer() {
+    document.querySelector('.timer').innerText = String(gTimerCounter).padStart(3, '0')
+    gTimerCounter++
+}
+
+
+function resetHearts() {
+    document.querySelector('.lives').innerHTML = `
+    <img src="imgs/heart.png" alt="heart" class="heart">
+    <img src="imgs/heart.png" alt="heart" class="heart">
+    <img src="imgs/heart.png" alt="heart" class="heart">
+    `
+}
+
+function countAround(board, rowIdx, colIdx) {
+    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+        // EXCLUDE OVERFLOW
+        if (i < 0 || i >= board.length) continue
+        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+            // EXCLUDE CENTER OF AREA
+            if (i === rowIdx && j === colIdx) continue
+            // EXCLUDE OVERFLOW
+            if (j < 0 || j >= board[0].length) continue
+            // currCell = current neighbor
+            var currCell = board[i][j]
+            // CHOOSE HOW TO PROCEED FROM HERE ACCORDINGLY
+            if (currCell.isMine) {
+                // DONE : count each mine u find
+                gBoard[rowIdx][colIdx].minesAroundCount++
+            }
+        }
+    }
+}
+
+
 //* INCASE WE NEED TO WORK/RENDER ON NEW MATRIX
 function copyMat(mat) {
     var newMat = []
@@ -121,21 +157,6 @@ function getEmptyCells(board) {
 
     return emptyCells
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////// DOM_ELEMENT
-
-//* SHOW / HIDE ELEMENT
-function hideElement(selector) {
-    const el = document.querySelector(selector)
-    el.classList.add('hidden')
-}
-
-function showElement(selector) {
-    const el = document.querySelector(selector)
-    el.classList.remove('hidden')
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////// GENERIC
 
 //* GET RANDOM INT INCLUSIVE / EXLUCIVE
 function getRandomIntInclusive(min, max) {
