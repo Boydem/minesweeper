@@ -25,10 +25,8 @@ var gIsMegaFirstSaved
 var gFirstCell
 var gFirstClickEver
 var gEmptySeen
-const hbSound1 = new Audio('audio/hb.wav')
-const hbSound2 = new Audio('audio/hb2.wav')
-hbSound1.volume = 0.4
-hbSound2.volume = 0.4
+const bombSound = new Audio('audio/hb2.wav')
+bombSound.volume = 0.4
 
 
 function initGame() {
@@ -198,8 +196,8 @@ function cellClicked(elCell, i, j, ev) {
                 gameOver()
                 return
             }
-            hbSound2.currentTime = 0
-            hbSound2.play()
+            bombSound.currentTime = 0
+            bombSound.play()
             gBoard[i][j].isShown = true
             elCellContent.classList.add('revealed')
             elCell.style.backgroundColor = 'red'
@@ -214,6 +212,8 @@ function cellClicked(elCell, i, j, ev) {
     }
     if (gBoard[i][j].minesAroundCount === 0 && !gBoard[i][j].isMine) {
         expandShown(gBoard, elCell, i, j)
+        checkWin()
+        return
     } else if (!gBoard[i][j].isMine) {
         gGame.shownCount++
         gBoard[i][j].isShown = true
@@ -236,9 +236,11 @@ function expandShown(board, elCell,
             // EXCLUDE OVERFLOW
             if (j < 0 || j >= board[0].length) continue
             var currCell = board[i][j]
-            if (currCell.isMarked) continue
             var cellSelector = '.cell-' + i + '-' + j
             var elCurrCell = document.querySelector(cellSelector)
+            if (i === rowIdx && j === colIdx) continue
+            if (currCell.isMarked || currCell.isShown) continue
+
             // MODEL
             if (currCell.isShown === false) {
                 currCell.isShown = true
@@ -249,9 +251,9 @@ function expandShown(board, elCell,
             if (elCurrCell.querySelector('*')) {
                 elCurrCell.querySelector('*').classList.add('revealed')
             }
-            // if (currCell.minesAroundCount === 0) {
-            //     expandShown(gBoard, elCurrCell, i, j)
-            // }
+            if (currCell.minesAroundCount === 0 || !currCell.isShown) {
+                expandShown(gBoard, elCurrCell, i, j)
+            }
         }
     }
 

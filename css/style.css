@@ -183,7 +183,7 @@ button:hover{
     /* margin-top: 30px; */
     /* margin-bottom: 10px; */
     position: absolute;
-    bottom: 45px;
+    bottom: 35px;
     right: 50%;
     transform: translateX(50%);
 }
