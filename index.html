@@ -16,24 +16,29 @@
         <div class="left">
             <h1 class="mine-title">MINESWEEPER</h1>
 
+            <button onclick="switchTheme()" class="dark-mode-btn round-btn">
+                <img class="btn-img dark-mode-img" src="imgs/dark.png" alt="moon">
+            </button>
+
+            </button>
             <h2>HELPER?</h2>
             <div class="helper-btns">
-            <button data-btn-type="hint" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+            <button data-btn-type="hint" class="btn helper round-btn" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
                 <span class="helper-counter">3</span>
                 <!-- HINT -->
                 <img src="imgs/hint2.png" alt="hint" class="btn-img">
             </button>
-            <button data-btn-type="safe" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+            <button data-btn-type="safe" class="btn helper round-btn" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
                 <span class="helper-counter">3</span>
                 <!-- SAFE CLICK -->
                 <img src="imgs/safe.png" alt="safe" class="btn-img">
             </button>
-            <button data-btn-type="mega" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+            <button data-btn-type="mega" class="btn helper round-btn" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
                 <span class="helper-counter">1</span>
                 <!-- MEGA HINT -->
                 <img src="imgs/mega2.png" alt="mega" class="btn-img">
             </button>
-            <button data-btn-type="exterminator" class="btn helper" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
+            <button data-btn-type="exterminator" class="btn helper round-btn" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
                 <span class="helper-counter">1</span>
                 <!-- EXTERMINATOR -->
                 <img src="imgs/exterminator.png" alt="ext" class="btn-img">

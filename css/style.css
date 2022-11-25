@@ -9,11 +9,23 @@
 }
 
 :root {
-    --primary: rgb(220, 185, 255);
-    --sec: rgb(105, 58, 151);
+    --body-bgc:rgb(220, 200, 255);
     --board-bgc: rgb(2, 15, 29);
+    --primary: rgb(105, 58, 151);
+    --primary-light: rgb(220, 200, 255);
     --darkblue: rgb(0, 12, 26);
-  }
+    --mine-title:#C2E812;
+    --footer: rgb(105, 58, 151);
+}
+[data-theme="light"]  {
+    --body-bgc:#25607e;
+    --board-bgc:  #f8e9d9;
+    --primary: #397797;
+    --footer: #f8e9d9;
+    --primary-light: #c2ebff;
+    --darkblue: #fff3e5;
+    --mine-title:#e81411
+}
 
 *{
     user-select: none;
@@ -30,15 +42,15 @@ body,body *{
 body{
     font-size: 16px;
     font-family: "Press Start";
-    color: rgb(255, 255, 255);  
-    background-color: rgb(246, 238, 255);
+    color: var(--body-bgc);  
+    background-color: var(--body-bgc);
 }
 button{
     cursor:pointer;
-    transition: 0.5s all;
+    transition: 0.5s box-shadow;
 }
 button:hover{
-    box-shadow: 0px 5px 10px var(--sec);
+    box-shadow: 0px 0px 10px var(--primary);
 }
 
 .game-wrap{
@@ -99,13 +111,13 @@ button:hover{
     width: 100%;
     padding: 20px;
     background-color: transparent;
-    color: var(--primary);
+    color: var(--primary-light);
     font-family: "Press Start";
-    border: 1px solid grey;
-    transition: 0.1s border;
+    border: 2px solid var(--primary);
+    transition: 0.3s border;
 }
 .btn:hover{
-    border: 1px solid var(--primary);
+    border: 2px solid var(--primary-light);
     
 }
 
@@ -123,9 +135,7 @@ button:hover{
     flex-wrap: wrap;
     
 }
-
-.helper{
-    margin-top: 20px;
+.round-btn{
     position: relative;
     display: flex;
     flex-direction: column;
@@ -136,8 +146,10 @@ button:hover{
     height: 50px;
     border-radius: 50%;
     padding: 0px;
-    max-width: 360px;
-    color: #fff;
+}
+.helper{
+    margin-top: 20px;
+    color: var(--primary-light);
     transition: 0.3s background-color;
 }
 .helper:disabled{
@@ -165,7 +177,7 @@ button:hover{
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: var(--sec);
+    background-color: var(--primary);
     color: white;
 }
 
@@ -177,7 +189,7 @@ button:hover{
     left: 50%;
     transform: translateX(-50%);
     font-weight: 100;
-    color: #C2E812;
+    color: var(--mine-title);
 }
 .lives{
     /* margin-top: 30px; */
@@ -188,7 +200,7 @@ button:hover{
     transform: translateX(50%);
 }
 .lives span{
-    color: var(--primary);
+    color: var(--primary-light);
     font-size: 1.5em;
 }
 
@@ -251,6 +263,9 @@ td{
 }
 .level{
     position: relative;
+    color: var(--body-bgc);
+    background-color: var(--board-bgc);
+    border: 2px solid var(--primary);
 }
 .best-score{
     transition: 0.3s all;
@@ -305,10 +320,6 @@ footer{
 
 
 .hint{
-    /* border-top: 3px solid var(--sec);
-    border-right: 3px solid var(--primary);
-    border-bottom: 3px solid var(--primary);
-    border-left: 3px solid var(--sec); */
     animation: blink 0.2s ease infinite alternate ;
 }
 
@@ -320,8 +331,29 @@ footer{
     animation: blink 0.2s ease infinite alternate ;
 }
 
+.dark-mode-img{
+    height: 24px;
+    vertical-align: middle;
+}
+.dark-mode-btn{
+    align-self: center;
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    z-index: 2;
+    background-color: var(--darkblue);
+    border:2px solid  var(--primary);
+    transition: all 0.3s;
+    box-shadow: 0px 0px 10px var(--primary);
+}
+.dark-mode-btn:hover{
+    border:2px solid  var(--mine-title);
+    /* background-color: var(--primary-light); */
+    box-shadow: none;
+}
+
 .footer-mygit{
-color: var(--sec);
+color: var(--footer);
 }
 .footer-mygit:hover{
     color: #FF2968;
@@ -329,6 +361,7 @@ color: var(--sec);
 .footer-mygit:visited{
     color: none;
 }
+
 
 @keyframes blink{
     from{

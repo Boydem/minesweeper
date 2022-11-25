@@ -1,11 +1,13 @@
 'use strict'
 
 // Helpers
+var isDarkMode = true
 var gHintsCounter
 var gSafeCounter
 var gMegaCounter
 var gExterminatorCounter
 var gCurrLevel = 2
+const root = document.documentElement
 const hoverSound1 = new Audio('audio/hover4.wav')
 const hoverSound2 = new Audio('audio/hover3.wav')
 hoverSound1.volume = 0.1
@@ -176,4 +178,21 @@ function onLevelMouseLeave(elBtn) {
     const elScore = elBtn.querySelector('.best-score')
     elScore.style.opacity = '0'
     elScore.style.bottom = '-10px'
+}
+
+
+
+
+function switchTheme() {
+    if (isDarkMode) {
+        isDarkMode = false
+        root.setAttribute('data-theme', 'light');
+        document.querySelector('.dark-mode-img').src = 'imgs/sun.png'
+        console.log('light now');
+    } else {
+        isDarkMode = true
+        root.setAttribute('data-theme', 'dark');
+        document.querySelector('.dark-mode-img').src = 'imgs/dark.png'
+        console.log('dark now');
+    }
 }
