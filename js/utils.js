@@ -41,11 +41,11 @@ function renderBoard(board, selector) {
             const cell = board[i][j]
             const className = `cell cell-${i}-${j}`
             if (cell.isMine) {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="mine-img" src="imgs/mine.png" alt="mine"/></td>`
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="mine-img" src="imgs/mine.png" alt="mine"/></td>`
             } else if (cell.minesAroundCount !== 0) {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
             } else {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
             }
 
         }

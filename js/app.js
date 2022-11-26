@@ -91,11 +91,11 @@ function cellMarked(elCell, i, j) {
         elCell.innerHTML = `<img data-placed="cell-${i}-${j}" src="imgs/flag.png" alt="flag">`
         elCell.querySelector('*').classList.add('revealed')
         gBoard[i][j].isMarked = true
+        console.log('gBoard[i][j]:', gBoard[i][j])
         gGame.markedCount++
         gMinesLeftToMark--
         document.querySelector('.bomb-counter').innerText = String(gMinesLeftToMark).padStart(3, '0')
         checkWin()
-        return
     } else if (gBoard[i][j].isMarked && !gBoard[i][j].isShown) {
         elCell.innerHTML = getMatchingFlagContent(gPrevCellsContent, i, j)
         if (elCell.querySelector('*') !== null) {
@@ -107,9 +107,7 @@ function cellMarked(elCell, i, j) {
         gGame.markedCount--
         gBoard[i][j].isMarked = false
         document.querySelector('.bomb-counter').innerText = String(gMinesLeftToMark).padStart(3, '0')
-        return
     }
-    return
 }
 
 function saveCellItem(elCell, i, j, content) {
@@ -376,14 +374,14 @@ function getShuffledMinesCoords(board) {
     const coords = []
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board.length; j++) {
-            const coord = {
-                i,
-                j
-            }
-            if (board[i][j].isMine && !board[i][j].isShown && !board[i][j].isMark) {
-                // count it and push
+            if (gBoard[i][j].isMarked) continue
+            if (gBoard[i][j].isShown) continue
+            if (gBoard[i][j].isMine) {
+                coords.push({
+                    i,
+                    j
+                })
                 gMinesCounter++
-                coords.push(coord)
             }
         }
     }
@@ -426,9 +424,14 @@ function createCell(mine = false) {
 function setMinesNegsCount(board) {
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board.length; j++) {
-            gBoard[i][j].minesAroundCount = 0
+            const cell = gBoard[i][j]
+            cell.minesAroundCount = 0
             // DONE: Count mines around each cell 
             countAround(board, i, j)
+            if (cell.isMarked) {
+                var idx = getMatchingFlagIdx(i, j)
+                gPrevCellsContent[idx].content = `<td class=".cell .cell-${i}-${j}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
+            }
         }
     }
 }

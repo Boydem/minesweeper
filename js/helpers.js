@@ -141,32 +141,21 @@ function renderForExterminator(board, selector) {
             const cell = board[i][j]
             const className = `cell cell-${i}-${j}`
             if (cell.isMarked) {
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="revealed" data-placed="cell-${i}-${j}" src="imgs/flag.png" alt="flag"></td>`
+            } else if (cell.isShown) {
                 if (cell.minesAroundCount !== 0 && !cell.isMine) {
-                    var idx = getMatchingFlagIdx(gPrevCellsContent, i, j)
-                    gPrevCellsContent[idx].content = `<span class="revealed">${cell.minesAroundCount}</span>`
-                    strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img data-placed="cell-${i}-${j}" src="imgs/flag.png" alt="flag"></td>`
-                } else if (cell.isMine) {
-                    strHTML += `<td style="background-color:red;" class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img data-placed="cell-${i}-${j}" src="imgs/flag.png" alt="flag"></td>`
-                } else {
-                    var idx = getMatchingFlagIdx(gPrevCellsContent, i, j)
-                    gPrevCellsContent[idx].content = ``
-                    strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img data-placed="cell-${i}-${j}" src="imgs/flag.png" alt="flag"></td>`
-                }
-            }
-            if (cell.isShown) {
-                if (cell.minesAroundCount !== 0 && !cell.isMine) {
-                    strHTML += `<td class="${className} selected" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span class="revealed">${cell.minesAroundCount}</span></td>`
+                    strHTML += `<td class="${className} selected" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span class="revealed">${cell.minesAroundCount}</span></td>`
                 } else if (cell.isMine) {
                     strHTML += `<td style="background-color:red;" class="${className} selected" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="mine-img revealed" src="imgs/mine.png" alt="mine"/></td>`
                 } else {
-                    strHTML += `<td class="${className} selected" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
+                    strHTML += `<td class="${className} selected" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
                 }
             } else if (cell.isMine) {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="mine-img" src="imgs/mine.png" alt="mine"/></td>`
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><img class="mine-img" src="imgs/mine.png" alt="mine"/></td>`
             } else if (cell.minesAroundCount !== 0) {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
-            } else {
-                strHTML += `<td class="${className}" oncontextmenu="cellClicked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
+            } else if (cell.minesAroundCount === 0) {
+                strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"></td>`
             }
 
         }
