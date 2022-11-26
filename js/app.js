@@ -428,7 +428,7 @@ function setMinesNegsCount(board) {
             cell.minesAroundCount = 0
             // DONE: Count mines around each cell 
             countAround(board, i, j)
-            if (cell.isMarked) {
+            if (cell.isMarked && !cell.isMine) {
                 var idx = getMatchingFlagIdx(i, j)
                 gPrevCellsContent[idx].content = `<td class=".cell .cell-${i}-${j}" oncontextmenu="cellMarked(this,${i},${j},event)" onclick="cellClicked(this,${i},${j},event)"><span>${cell.minesAroundCount}</span></td>`
             }
