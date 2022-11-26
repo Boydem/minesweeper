@@ -5,7 +5,8 @@ var isDarkMode = true
 var gHintsCounter
 var gSafeCounter
 var gMegaCounter
-var gExterminatorCounter
+var gIsExterminatorPressed
+
 var gCurrLevel = 2
 const root = document.documentElement
 const hoverSound1 = new Audio('audio/hover4.wav')
@@ -88,46 +89,11 @@ function onHelperBtn(elBtn) {
             }
             break
         case 'exterminator':
+            if (gIsExterminatorPressed) return
+            gIsExterminatorPressed = true
             onExterminatorBtn()
             break
     }
-}
-
-function onSafeBtn(board) {
-
-    if (gSafeCounter > 0) {
-        gSafeCounter--
-        console.log('safe')
-        var safeCells = []
-        for (let i = 0; i < board.length; i++) {
-            for (let j = 0; j < board.length; j++) {
-                if (!board[i][j].isMine && !board[i][j].isShown && !board[i][j].isMarked) {
-                    var coord = {
-                        i,
-                        j
-                    }
-                    safeCells.push(coord)
-                }
-            }
-        }
-        shuffle(safeCells)
-        // update DOM
-        var selector = '.cell-' + safeCells[0].i + '-' + safeCells[0].j
-        var randomSafe = document.querySelector(selector)
-        randomSafe.classList.add('safe')
-        setTimeout(() => {
-            randomSafe.classList.remove('safe')
-            document.querySelector(`button[data-btn-type="safe"] span`).innerText = gSafeCounter
-        }, 2000);
-    } else {
-        return
-    }
-
-}
-
-function onExterminatorBtn() {
-    console.log('ext')
-
 }
 
 
@@ -161,25 +127,46 @@ function onLevelMouseEnter(elBtn) {
     hoverSound2.currentTime = 0
     hoverSound2.play()
     const elScore = elBtn.querySelector('.best-score')
-    switch (elBtn.dataset.btnScore) {
-        case 'beginner':
-            break
-        case 'medium':
-            break
-        case 'expert':
-            break
-
-    }
     elScore.style.bottom = '-30px'
     elScore.style.opacity = '1'
 }
 
 function onLevelMouseLeave(elBtn) {
+
     const elScore = elBtn.querySelector('.best-score')
     elScore.style.opacity = '0'
     elScore.style.bottom = '-10px'
+
 }
 
+
+function onModeMouseEnter(elBtn) {
+
+    hoverSound2.currentTime = 0
+    hoverSound2.play()
+    switch (elBtn.dataset.gameMode) {
+        case 'manual':
+            var elDescription = document.querySelector('.mode-span[data-game-mode="manual"]')
+            break
+        case '7boom':
+            var elDescription = document.querySelector('.mode-span[data-game-mode="7boom"]')
+            break
+    }
+    elDescription.style.opacity = '1'
+
+}
+
+function onModeMouseLeave(elBtn) {
+    switch (elBtn.dataset.gameMode) {
+        case 'manual':
+            var elDescription = document.querySelector('.mode-span[data-game-mode="manual"]')
+            break
+        case '7boom':
+            var elDescription = document.querySelector('.mode-span[data-game-mode="7boom"]')
+            break
+    }
+    elDescription.style.opacity = '0'
+}
 
 
 
@@ -197,4 +184,61 @@ function switchTheme() {
         document.querySelector('.dark-mode-text').innerText = 'DARK MODE'
         console.log('dark now');
     }
+}
+
+// Modes
+
+function setManualMode(elBtn) {
+    document.querySelector(`button[data-game-mode="7boom"]`).classList.remove('active')
+    gManualyChosenMines = []
+    gBoard = buildBoard(gLevel.SIZE, gLevel.MINES)
+    renderBoard(gBoard, '.board')
+    elBtn.classList.add('active')
+    elBtn.innerText = gLevel.MINES
+    gGame.isOn = false
+    gGame.markedCount = 0
+    gGame.shownCount = 0
+    clearInterval(gTimerInterval)
+    document.querySelector('.timer').innerText = '000'
+    document.querySelector('.bomb-counter').innerText = String(gLevel.MINES).padStart(3, '0')
+    gIsUserOnManual = true
+    gIsBoardLocked = true
+    // setMines(gBoard, gLevel.MINES)
+
+}
+
+function set7Mode(elBtn) {
+
+    resetGame()
+    console.log('build7BoomBoard():', build7BoomBoard(gBoard, gLevel.SIZE))
+    gBoard = build7BoomBoard(gBoard, gLevel.SIZE)
+    setMinesNegsCount(gBoard)
+    renderBoard(gBoard, '.board')
+    colorNumbers(gBoard)
+    enableBtns()
+    gFirstClickEver = true
+    is7ModeOn = true
+    elBtn.classList.add('active')
+
+}
+
+function build7BoomBoard(board, size) {
+    var iteration = (size ** 2) - 1
+    console.log('iteration:', iteration)
+    // TODO: Builds the board 
+    const newBoard = []
+    for (var i = 0; i < board.length; i++) {
+        newBoard[i] = []
+        for (var j = 0; j < board.length; j++) {
+            if (iteration % 7 === 0) {
+                newBoard[i][j] = createCell(true)
+            } else {
+                newBoard[i][j] = createCell(false)
+            }
+            iteration--
+            console.log('iteration:', iteration)
+        }
+    }
+    return newBoard
+
 }

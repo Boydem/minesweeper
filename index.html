@@ -22,6 +22,17 @@
             </button>
         </div>
             </button>
+            <div class="modes">
+                <h2>MODES</h2>
+                <button  data-game-mode="manual" class="btn round-btn mode" onmouseenter="onModeMouseEnter(this)" onmouseleave="onModeMouseLeave(this)" onclick="setManualMode(this)">
+                    M
+                </button>
+                <span  data-game-mode="manual" class="mode-span">Manual: Place Your Own Bombs</span>
+                <button  data-game-mode="7boom" class="btn round-btn mode" onmouseenter="onModeMouseEnter(this)" onmouseleave="onModeMouseLeave(this)" onclick="set7Mode(this)">
+                    7
+                </button>
+                <span  data-game-mode="7boom" class="mode-span">7BOOM: Bombs Placed in 7BOOM order</span>
+            </div>
             <h2>HELPER?</h2>
             <div class="helper-btns">
             <button data-btn-type="hint" class="btn helper round-btn" onmouseenter="onHelperMouseEnter(this)" onmouseleave="onHelperMouseLeave(this)" onclick="onHelperBtn(this)">
@@ -50,6 +61,8 @@
         
         </div>
         <div class="right">
+
+
 
             <div class="levels">
                 <button data-btn-score="beginner" class="btn level" onmouseenter="onLevelMouseEnter(this)" onmouseleave="onLevelMouseLeave(this)" onclick="changeLevel(this)">

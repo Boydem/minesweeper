@@ -7,24 +7,38 @@
     font-family: "Press Start";
     src: url("../fonts/prstart.ttf");
 }
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("../fonts/Roboto-Bold.ttf");
+}
+@font-face {
+    font-family: "Roboto-Medium";
+    src: url("../fonts/Roboto-Medium.ttf");
+}
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("../fonts/Roboto-Regular.ttf");
+}
 
 :root {
     --body-bgc:rgb(225, 200, 255);
     --board-bgc: rgb(2, 15, 29);
     --primary: rgb(86, 0, 172);
-    --primary-light: rgb(220, 200, 255);
+    --primary-light: #C2E812;
     --darkblue: rgb(0, 12, 26);
     --mine-title:#C2E812;
     --footer: rgb(105, 58, 151);
+    --text: white;
 }
 [data-theme="light"]  {
     --body-bgc:#006977;
     --board-bgc:  #f8e9d9;
     --primary: #00acac;
     --footer: #f8e9d9;
-    --primary-light: #c7fff7;
+    --primary-light: #e81411;
     --darkblue: #fff3e5;
-    --mine-title:#e81411
+    --mine-title:#e81411;
+    --text: black;
 }
 
 *{
@@ -262,15 +276,13 @@ td{
 .best-score{
     transition: 0.3s all;
     opacity: 0;
-    color: white;
     position: absolute;
     width: 100%;
     bottom: -40px;
     right: 50%; 
+    font-family: 'Roboto-Medium';
     transform: translateX(50%);
     pointer-events: none;
-    font-family: arial;
-    font-weight: 600;
 }
 .selected{
     border-top: 3px solid #7B7B7B;
@@ -322,6 +334,53 @@ footer{
 .safe{
     animation: blink 0.2s ease infinite alternate ;
 }
+
+/* GAME MODES */
+
+.modes{
+    /* position: absolute;
+    bottom: 10px;
+    right: 10px; */
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.mode{
+    transition: 0.2s all;
+}
+.mode:hover{
+    background-color: var(--primary-light);
+    color: var(--darkblue);
+}
+
+.active{
+    background-color: var(--primary-light);
+    color: var(--darkblue);
+}
+.mode-span{
+    transition: all 0.2s;
+    opacity: 0;
+    font-family: 'Roboto-Regular';
+    letter-spacing: 1px;
+    position: absolute;
+    left: 50%;
+    bottom: -25px;
+    font-size: 12px;
+    color:var(--primary-light);
+    font-weight: 600;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.modes h2,.helper-btns h2{
+    width: 100%;
+}
+
 
 /* DARK MODE */
 
