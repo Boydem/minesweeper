@@ -122,6 +122,8 @@ function saveCellItem(elCell, i, j, content) {
 
 
 function cellClicked(elCell, i, j, ev) {
+    if (gBoard[i][j].isMarked) return
+    if (gBoard[i][j].isShown) return
     if (gIsUserOnManual) {
         if (gBoard[i][j].isMine) return
         gBoard[i][j].isMine = true
@@ -145,7 +147,6 @@ function cellClicked(elCell, i, j, ev) {
                 colorNumbers(gBoard)
                 gIsBoardLocked = false
             }, 2000);
-            console.log(gManualyChosenMines);
         }
         return
     }
@@ -179,7 +180,6 @@ function cellClicked(elCell, i, j, ev) {
             i,
             j
         }
-        console.log('gFirstCell', gFirstCell)
         return
     } else if (gIsMegaPressed && gIsMegaFirstSaved) {
         gIsMegaPressed = false
@@ -193,11 +193,6 @@ function cellClicked(elCell, i, j, ev) {
         return
     }
 
-
-
-    var leftClick = ev.button === 0
-    var rightClick = ev.button === 2
-
     const elCellContent = elCell.querySelector('*')
 
     if (gIsHintPressed && gHintsCounter > 0) {
@@ -205,18 +200,6 @@ function cellClicked(elCell, i, j, ev) {
         gHintsCounter--
         gIsHintPressed = false
         document.querySelector(`button[data-btn-type="hint"] span`).innerText = gHintsCounter
-        return
-    }
-
-
-    if (rightClick && !gGame.isOn && !gIsGameOver) {
-        gGame.isOn = true
-        gTimerCounter = 1
-        gTimerInterval = setInterval(startTimer, 1000)
-        cellMarked(elCell, i, j)
-        return
-    } else if (rightClick && gGame.isOn && !gIsGameOver) {
-        cellMarked(elCell, i, j)
         return
     }
 
@@ -228,13 +211,8 @@ function cellClicked(elCell, i, j, ev) {
         return
     }
 
-
-
-    if (gBoard[i][j].isMarked) return
-    if (gBoard[i][j].isShown) return
-
-    // check whats inside
-    if (leftClick && gBoard[i][j].isMine) {
+    // check if mine
+    if (gBoard[i][j].isMine) {
         if (!gBoard[i][j].isShown && gGame.isOn) {
             gLivesCounter--
             var hearts = document.querySelectorAll('.lives img')
@@ -309,7 +287,6 @@ function expandShown(board, elCell,
 }
 
 function colorNumbers(board) {
-
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board.length; j++) {
             const elCell = document.querySelector(`.cell-${i}-${j}`)
@@ -344,7 +321,6 @@ function colorNumbers(board) {
 
 function buildBoard(size) {
 
-    // TODO: Builds the board 
     const board = []
     for (var i = 0; i < size; i++) {
         board[i] = []
@@ -447,6 +423,10 @@ function resetDomEls() {
     document.querySelector('.reset img').src = 'imgs/smiley-face.png'
 }
 
+function resetHearts() {
+    document.querySelector('.lives').innerHTML = `<img src="imgs/heart.png" alt="heart" class="heart">`.repeat(3)
+}
+
 
 function resetGame() {
     resetHearts()
@@ -457,7 +437,6 @@ function resetGame() {
     gGame.shownCount = 0
     clearInterval(gTimerInterval)
     document.querySelector('.timer').innerText = '000'
-    // document.querySelectorAll('.revealed')
     initGame()
 }
 
@@ -479,7 +458,6 @@ function handleScore(level) {
     switch (level) {
         case 1:
             var bestScore = localStorage.getItem(`bestScore1`)
-            console.log('bestScore:', bestScore)
             var elScoreSpan = document.querySelector(`button[data-btn-score="beginner"] span`)
             if (currScore < bestScore) {
                 localStorage.setItem('bestScore1', currScore)
@@ -491,7 +469,6 @@ function handleScore(level) {
             break
         case 2:
             var bestScore = localStorage.getItem(`bestScore2`)
-            console.log('bestScore:', bestScore)
             var elScoreSpan = document.querySelector(`button[data-btn-score="medium"] span`)
             if (currScore < bestScore) {
                 localStorage.setItem('bestScore2', currScore)
@@ -503,7 +480,6 @@ function handleScore(level) {
             break
         case 3:
             var bestScore = localStorage.getItem(`bestScore3`)
-            console.log('bestScore:', bestScore)
             var elScoreSpan = document.querySelector(`button[data-btn-score="expert"] span`)
             if (currScore < bestScore) {
                 localStorage.setItem('bestScore3', currScore)
